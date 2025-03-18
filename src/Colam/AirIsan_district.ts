@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinTable, ManyToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToMany, CreateDateColumn, ManyToOne } from "typeorm"
 import { AirIsan } from "./user.entity"
+import { AirIsan_Image_ } from "./ima_Airlsan_other"
 
 @Entity()
 export class AirIsan_district {
@@ -48,7 +49,13 @@ export class AirIsan_district {
     @Column()
     dust_height?: number
 
+    @CreateDateColumn() 
+    createdAt?: Date;
+
     @ManyToMany(() => AirIsan, (airIsan) => airIsan.airisan_district_id)
     airisan?: AirIsan[];
 
+    @ManyToOne(() => AirIsan_Image_, (image) => image.arirsan_district_id)
+    @JoinColumn({ name: 'airisan_imgae_id' })
+    airisan_imgae?: AirIsan_Image_;
 }
